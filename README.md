@@ -2,4 +2,8 @@ A relatively simple plugin for Godot 4.x that adds features to make creating doc
 
 This plugin adds a context menu item to the script editor titled ## Documentation, and under that you may either convert any lines currently selected in your code to documentation code (prefix them with ## ) or open a window to type your documentation comments into before converting them and copying them to the clipboard.
 
+![Screenshot before formatting the selected lines of text.](example1.png)
+![Screenshot after formatting the selected lines of text.](example2.png)
+![Screenshot of the helper window.](example3.png)
+
 Thanks all.
