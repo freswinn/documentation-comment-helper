@@ -42,7 +42,6 @@ func format_selection():
 	var editor_plugin = EditorPlugin.new().get_editor_interface()
 	var scr : CodeEdit = editor_plugin.get_script_editor().get_current_editor().get_base_editor()
 	var lines = scr.get_line_ranges_from_carets()
-	print(lines)
 	for i in range(lines[0].x, lines[0].y+1):
 		var text = scr.get_line(i)
 		scr.set_line(i, "## %s" % text)
