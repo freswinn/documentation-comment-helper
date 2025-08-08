@@ -1,0 +1,139 @@
+[gd_scene load_steps=2 format=3 uid="uid://b4i628y87m0ux"]
+
+[ext_resource type="Script" uid="uid://bvoj0mxj16x5s" path="res://addons/DocCommentHelper/window.gd" id="1_b6yhb"]
+
+[node name="Window" type="Window"]
+title = "## Documentation Comment Writer"
+initial_position = 2
+size = Vector2i(640, 400)
+transient = true
+min_size = Vector2i(640, 300)
+script = ExtResource("1_b6yhb")
+
+[node name="p" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="m" type="MarginContainer" parent="p"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="v" type="VBoxContainer" parent="p/m"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CodeEdit" type="CodeEdit" parent="p/m/v"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+placeholder_text = "Documentation comments typed into the code region to the left do not require any comment symbols (#). These will be added when you click either of the Convert buttons.
+
+However, this will NOT add line breaks for you. Resize this window and use the Text Wrap Mode and Width Guide options to help you find a good place to break up your comment lines.
+	:)"
+wrap_mode = 1
+autowrap_mode = 2
+draw_tabs = true
+line_length_guidelines = Array[int]([100])
+gutters_draw_line_numbers = true
+auto_brace_completion_enabled = true
+auto_brace_completion_highlight_matching = true
+
+[node name="h" type="HBoxContainer" parent="p/m/v"]
+layout_mode = 2
+theme_override_constants/separation = 12
+
+[node name="Copy" type="Button" parent="p/m/v/h"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Copies all lines written above prefixed with \"## \" to your computer's clipboard."
+text = "## Convert and Copy"
+
+[node name="Convert" type="Button" parent="p/m/v/h"]
+unique_name_in_owner = true
+layout_mode = 2
+tooltip_text = "Copies all lines written above prefixed with \"## \" to your computer's clipboard."
+text = "## Just Convert"
+
+[node name="ShowOptions" type="CheckBox" parent="p/m/v/h"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Show Options"
+
+[node name="Options" type="HFlowContainer" parent="p/m/v"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 12
+
+[node name="WrapBox" type="HBoxContainer" parent="p/m/v/Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="p/m/v/Options/WrapBox"]
+layout_mode = 2
+text = "Text Wrap Mode"
+
+[node name="Wrap" type="OptionButton" parent="p/m/v/Options/WrapBox"]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 1
+selected = 2
+item_count = 4
+popup/item_0/text = "Off"
+popup/item_0/id = 0
+popup/item_1/text = "Arbitrary"
+popup/item_1/id = 1
+popup/item_2/text = "Word"
+popup/item_2/id = 2
+popup/item_3/text = "Word (Smart)"
+popup/item_3/id = 3
+
+[node name="GuideBox" type="HBoxContainer" parent="p/m/v/Options"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="p/m/v/Options/GuideBox"]
+layout_mode = 2
+text = "Width Guide"
+
+[node name="WidthGuide" type="SpinBox" parent="p/m/v/Options/GuideBox"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 80.0
+value = 100.0
+rounded = true
+allow_greater = true
+alignment = 1
+
+[node name="BraceCompletion" type="CheckBox" parent="p/m/v/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Auto Brace Completion"
+
+[node name="BraceHighlighting" type="CheckBox" parent="p/m/v/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+button_pressed = true
+text = "Brace Highlighting"
+
+[node name="Website" type="Button" parent="p/m/v/Options"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Open GDScript Documentation Comments website"
+
+[connection signal="pressed" from="p/m/v/h/Copy" to="." method="_on_copy_pressed"]
+[connection signal="pressed" from="p/m/v/h/Convert" to="." method="_on_convert_pressed"]
+[connection signal="toggled" from="p/m/v/h/ShowOptions" to="." method="_on_show_options_toggled"]
+[connection signal="item_selected" from="p/m/v/Options/WrapBox/Wrap" to="." method="_on_wrap_item_selected"]
+[connection signal="value_changed" from="p/m/v/Options/GuideBox/WidthGuide" to="." method="_on_width_guide_value_changed"]
+[connection signal="toggled" from="p/m/v/Options/BraceCompletion" to="." method="_on_brace_completion_toggled"]
+[connection signal="toggled" from="p/m/v/Options/BraceHighlighting" to="." method="_on_brace_highlighting_toggled"]
+[connection signal="pressed" from="p/m/v/Options/Website" to="." method="_on_website_pressed"]
