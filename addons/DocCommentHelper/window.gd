@@ -6,7 +6,7 @@ signal DocCommentHelper_Verbose
 enum WrapMode { None, Arbitrary, Word, SmartWord }
 
 const documentation_url = "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_documentation_comments.html"
-const SettingsPath = "user://Settings.json"
+const SettingsPath = "user://DocCommentSettings.json"
 const DefaultSettings = {
 	"show options" : true,
 	"wrap mode" : WrapMode.Word,
@@ -50,7 +50,7 @@ func save_settings():
 
 
 func _check_for_settings_file() -> bool:
-	var file_found = DirAccess.open("user://").file_exists("Settings.json")
+	var file_found = DirAccess.open("user://").file_exists("DocCommentSettings.json")
 	return file_found
 
 
