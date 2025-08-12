@@ -84,7 +84,6 @@ func change_setting(key : String, value, save_after_change : bool = true):
 
 
 
-
 func _ready():
 	if !Engine.is_editor_hint(): return
 	load_settings()
@@ -114,8 +113,10 @@ func _on_show_options_toggled(toggled_on: bool) -> void:
 	change_setting("show options", toggled_on)
 
 
+
 func _on_website_pressed() -> void:
 	OS.shell_open(documentation_url)
+
 
 
 func _on_brace_completion_toggled(toggled_on: bool) -> void:
@@ -123,14 +124,17 @@ func _on_brace_completion_toggled(toggled_on: bool) -> void:
 	change_setting("auto brace", toggled_on)
 
 
+
 func _on_brace_highlighting_toggled(toggled_on: bool) -> void:
 	%CodeEdit.auto_brace_completion_highlight_matching = toggled_on
 	change_setting("brace highlighting", toggled_on)
 
 
+
 func _on_width_guide_value_changed(value: float) -> void:
 	%CodeEdit.set_line_length_guidelines([int(value)])
 	change_setting("guideline", int(value))
+
 
 
 func _on_wrap_item_selected(index: WrapMode) -> void:
@@ -149,26 +153,36 @@ func _on_wrap_item_selected(index: WrapMode) -> void:
 	change_setting("wrap mode", index)
 
 
-func _on_convert_pressed() -> void:
-	var work = %CodeEdit.text.split("\n")
+
+func convert_text() -> void:
+	var lines = %CodeEdit.text.split("\n")
 	var out : String = ""
-	for i in work:
+	for i in lines.size():
+		var a : String = lines[i].strip_edges()
+		while a.begins_with("#"):
+			a = a.trim_prefix("#").dedent()
+		lines[i] = a
+	for i in lines:
 		out += "## %s\n" % i
-	%CodeEdit.text = out
+	%CodeEdit.text = out.trim_suffix("\n")
+
+
+
+func _on_convert_pressed() -> void:
+	convert_text()
+
 
 
 func _on_copy_pressed() -> void:
-	var work = %CodeEdit.text.split("\n")
-	var out : String = ""
-	for i in work:
-		out += "## %s\n" % i
-	%CodeEdit.text = out
+	convert_text()
 	%CodeEdit.select_all()
 	%CodeEdit.copy()
 
 
+
 func _on_clear_pressed() -> void:
 	%CodeEdit.text = ""
+
 
 
 func _on_help_text_toggled(toggled_on: bool) -> void:
@@ -178,10 +192,12 @@ func _on_help_text_toggled(toggled_on: bool) -> void:
 	change_setting("help text", toggled_on)
 
 
+
 func _on_verbose_toggled(toggled_on: bool) -> void:
 	verbose = toggled_on
 	change_setting("verbose", toggled_on)
 	DocCommentHelper_Verbose.emit(verbose)
+
 
 
 func _on_close_requested() -> void:
