@@ -9,6 +9,7 @@ var window_open : bool = false
 var verbose : bool = true
 
 
+
 func _popup_menu(paths: PackedStringArray) -> void:
 	var things := PopupMenu.new()
 	things.add_item("Format selection as documentation", ContextSelect.FormatSelection)
