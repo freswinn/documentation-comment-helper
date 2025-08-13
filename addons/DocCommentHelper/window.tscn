@@ -35,15 +35,10 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-placeholder_text = "Documentation comments typed into this code region do not require any comment symbols (#). These will be added when you click either of the Convert buttons.
-
-However, this will NOT add line breaks for you. Resize this window and use the Text Wrap Mode and Width Guide options to help you find a good place to break up your comment lines.
-
-Enjoy! :)"
 wrap_mode = 1
 autowrap_mode = 2
 draw_tabs = true
-line_length_guidelines = Array[int]([100])
+line_length_guidelines = Array[int]([97])
 gutters_draw_line_numbers = true
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
@@ -70,8 +65,12 @@ text = "## Just Convert"
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
-button_pressed = true
 text = "Show Options"
+
+[node name="Revert" type="Button" parent="p/m/v/h"]
+layout_mode = 2
+tooltip_text = "Removes the formatting conversion from all text in the editor."
+text = "Revert"
 
 [node name="Clear" type="Button" parent="p/m/v/h"]
 unique_name_in_owner = true
@@ -81,6 +80,7 @@ text = "Clear"
 
 [node name="Options" type="HFlowContainer" parent="p/m/v"]
 unique_name_in_owner = true
+visible = false
 layout_mode = 2
 theme_override_constants/h_separation = 12
 
@@ -96,7 +96,7 @@ text = "Width Guide"
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 80.0
-value = 80.0
+value = 97.0
 rounded = true
 allow_greater = true
 alignment = 1
@@ -117,7 +117,7 @@ text = "Text Wrap Mode"
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
-selected = 2
+selected = 0
 item_count = 4
 popup/item_0/text = "Off"
 popup/item_0/id = 0
@@ -144,14 +144,12 @@ text = "Brace Highlighting"
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "This sets whether to have the help text in the code window when empty."
-button_pressed = true
 text = "Helpful Text"
 
 [node name="Verbose" type="CheckBox" parent="p/m/v/Options"]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "Disabling this option will stop the plugin from printing non-error messages to output."
-button_pressed = true
 text = "Verbose"
 
 [node name="Website" type="Button" parent="p/m/v/Options"]
@@ -164,6 +162,7 @@ text = "Open Godot's Documentation Comments (website)"
 [connection signal="pressed" from="p/m/v/h/Copy" to="." method="_on_copy_pressed"]
 [connection signal="pressed" from="p/m/v/h/Convert" to="." method="_on_convert_pressed"]
 [connection signal="toggled" from="p/m/v/h/ShowOptions" to="." method="_on_show_options_toggled"]
+[connection signal="pressed" from="p/m/v/h/Revert" to="." method="_on_revert_pressed"]
 [connection signal="pressed" from="p/m/v/h/Clear" to="." method="_on_clear_pressed"]
 [connection signal="value_changed" from="p/m/v/Options/GuideBox/WidthGuide" to="." method="_on_width_guide_value_changed"]
 [connection signal="pressed" from="p/m/v/Options/GuideBox/GetGuideline" to="." method="get_guideline"]

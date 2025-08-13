@@ -202,3 +202,14 @@ func _on_verbose_toggled(toggled_on: bool) -> void:
 
 func _on_close_requested() -> void:
 	change_setting("content", %CodeEdit.text)
+
+
+func _on_revert_pressed() -> void:
+	var work : PackedStringArray = %CodeEdit.text.split("\n")
+	for i in work.size():
+		work[i] = work[i].trim_prefix("## ")
+	var out : String = ""
+	for i in work:
+		out += "%s\n" % i
+	out = out.trim_suffix("\n")
+	%CodeEdit.text = out
