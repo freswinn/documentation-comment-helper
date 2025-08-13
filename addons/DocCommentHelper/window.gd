@@ -15,8 +15,10 @@ const DefaultSettings = {
 	"brace highlighting" : true,
 	"help text" : true,
 	"verbose" : true,
-	"content" : ""
-}
+	"content" : "",
+	"window size x" : 640,
+	"window size y" : 400
+	}
 const HelpfulText = '''Documentation comments typed into this code region do not require any comment symbols (#). These will be added when you click either of the Convert buttons.
 
 However, this will NOT add line breaks for you. Resize this window and use the Text Wrap Mode and Width Guide options to help you find a good place to break up your comment lines.
@@ -95,6 +97,9 @@ func _ready():
 	%HelpText.button_pressed = settings["help text"]
 	%Verbose.button_pressed = settings["verbose"]
 	%CodeEdit.text = settings["content"]
+	self.size.x = settings["window size x"]
+	self.size.y = settings["window size y"]
+	size_changed.connect(_on_size_changed) # connected AFTER setting the size
 	active = true
 
 
@@ -204,6 +209,7 @@ func _on_close_requested() -> void:
 	change_setting("content", %CodeEdit.text)
 
 
+
 func _on_revert_pressed() -> void:
 	var work : PackedStringArray = %CodeEdit.text.split("\n")
 	for i in work.size():
@@ -213,3 +219,10 @@ func _on_revert_pressed() -> void:
 		out += "%s\n" % i
 	out = out.trim_suffix("\n")
 	%CodeEdit.text = out
+
+
+
+func _on_size_changed() -> void:
+	settings["window size x"] = self.size.x
+	settings["window size y"] = self.size.y
+	save_settings()
