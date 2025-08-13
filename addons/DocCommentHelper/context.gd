@@ -50,7 +50,6 @@ func format_selection():
 	var scr : CodeEdit = editor_plugin.get_script_editor().get_current_editor().get_base_editor()
 	var lines = scr.get_line_ranges_from_carets()
 	for i in range(lines[0].x, lines[0].y+1):
-		var out : String = ""
 		var linetext = scr.get_line(i)
 		var work : String = linetext.strip_edges().lstrip("#").dedent()
 		scr.set_line(i, "## %s" % work)
