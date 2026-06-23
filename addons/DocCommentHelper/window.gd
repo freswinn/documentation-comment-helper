@@ -1,8 +1,6 @@
 @tool
 extends Window
 
-signal DocCommentHelper_Verbose
-
 enum WrapMode { None, Arbitrary, Word, SmartWord }
 
 const documentation_url = "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_documentation_comments.html"
@@ -14,7 +12,6 @@ const DefaultSettings = {
 	"auto brace" : true,
 	"brace highlighting" : true,
 	"help text" : true,
-	"verbose" : true,
 	"content" : "",
 	"window size x" : 640,
 	"window size y" : 400
@@ -25,7 +22,6 @@ However, this will NOT add line breaks for you. Resize this window and use the T
 
 Enjoy! :)'''
 
-var verbose : bool = true
 var settings_file : FileAccess
 var settings : Dictionary
 var active : bool = false
@@ -45,6 +41,7 @@ func load_settings():
 
 
 func save_settings():
+	if !active: return
 	var new_file = FileAccess.open(SettingsPath, FileAccess.WRITE)
 	new_file.store_string(JSON.new().stringify(settings, "\t"))
 	new_file.close()
@@ -95,7 +92,6 @@ func _ready():
 	%WidthGuide.value = settings["guideline"]
 	%Wrap.select(settings["wrap mode"])
 	%HelpText.button_pressed = settings["help text"]
-	%Verbose.button_pressed = settings["verbose"]
 	%CodeEdit.text = settings["content"]
 	self.size.x = settings["window size x"]
 	self.size.y = settings["window size y"]
@@ -155,7 +151,7 @@ func _on_wrap_item_selected(index: WrapMode) -> void:
 		WrapMode.SmartWord:
 			%CodeEdit.wrap_mode = 1
 			%CodeEdit.autowrap_mode = 3
-	change_setting("wrap mode", index)
+	change_setting("wrap mode", int(index))
 
 
 
@@ -170,6 +166,7 @@ func convert_text() -> void:
 	for i in lines:
 		out += "## %s\n" % i
 	%CodeEdit.text = out.trim_suffix("\n")
+	change_setting("content", %CodeEdit.text)
 
 
 
@@ -187,6 +184,7 @@ func _on_copy_pressed() -> void:
 
 func _on_clear_pressed() -> void:
 	%CodeEdit.text = ""
+	change_setting("content", %CodeEdit.text)
 
 
 
@@ -198,15 +196,9 @@ func _on_help_text_toggled(toggled_on: bool) -> void:
 
 
 
-func _on_verbose_toggled(toggled_on: bool) -> void:
-	verbose = toggled_on
-	change_setting("verbose", toggled_on)
-	DocCommentHelper_Verbose.emit(verbose)
-
-
-
 func _on_close_requested() -> void:
 	change_setting("content", %CodeEdit.text)
+	active = false
 
 
 
@@ -219,10 +211,10 @@ func _on_revert_pressed() -> void:
 		out += "%s\n" % i
 	out = out.trim_suffix("\n")
 	%CodeEdit.text = out
+	change_setting("content", %CodeEdit.text)
 
 
 
 func _on_size_changed() -> void:
-	settings["window size x"] = self.size.x
-	settings["window size y"] = self.size.y
-	save_settings()
+	change_setting("window size x", int(self.size.x), false)
+	change_setting("window size y", int(self.size.y))

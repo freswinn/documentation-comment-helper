@@ -6,7 +6,6 @@ enum ContextSelect { FormatSelection, OpenWindow }
 var window_path = "res://addons/DocCommentHelper/window.tscn"
 var window
 var window_open : bool = false
-var verbose : bool = true
 
 
 
@@ -16,6 +15,8 @@ func _popup_menu(paths: PackedStringArray) -> void:
 	things.add_item("Open window for writing documentation", ContextSelect.OpenWindow)
 	things.id_pressed.connect(_on_submenu_option)
 	add_context_submenu_item("## Documentation", things)
+
+
 
 func _on_submenu_option(val : int):
 	match val:
@@ -28,20 +29,17 @@ func _on_submenu_option(val : int):
 
 func open_window():
 	if window_open:
-		if verbose: print("Documentation Comments  ||  window already opened. If this is in error, you may need to reset the plugin or editor.")
 		return
 	window = load(window_path).instantiate()
 	EditorInterface.get_base_control().add_child(window)
-	if verbose: print("Documentation Comments  ||  window opening")
 	window_open = true
 	window.popup_centered()
 	window.close_requested.connect(close_window)
-	window.DocCommentHelper_Verbose.connect(func(v : bool):
-		verbose = v)
+
+
 
 func close_window():
 	window_open = false
-	if verbose: print("Documentation Comments  ||  window closing")
 	window.queue_free()
 
 

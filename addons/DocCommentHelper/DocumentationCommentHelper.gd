@@ -6,20 +6,18 @@ const SettingsPath = "res://addons/DocCommentHelper/DocCommentSettings.json"
 const DefaultSettings = {
 	"show options" : true,
 	"wrap mode" : 2,
-	"guideline" : 100,
+	"guideline" : 80,
 	"auto brace" : true,
 	"brace highlighting" : true,
 	"help text" : true,
-	"verbose" : true,
 	"content" : "",
-	"window size x" : 640,
-	"window size y" : 400
+	"window size x" : 725,
+	"window size y" : 360
 	}
 
 
 var context := EditorContextMenuPlugin.new()
 var settings
-var verbose : bool = true
 
 
 
@@ -27,16 +25,11 @@ func _enter_tree() -> void:
 	add_context_menu_plugin(EditorContextMenuPlugin.CONTEXT_SLOT_SCRIPT_EDITOR_CODE, context)
 
 func _exit_tree() -> void:
-	verbose = context.verbose # since these are the only times you need to know verbose, it's fine
-	if verbose: print("Documentation Comments Helper  ||  Plugin unloaded.")
 	remove_context_menu_plugin(context)
 
 func _ready():
 	load_settings()
-	verbose = settings["verbose"]
 	context.set_script(load(ContextFilepath))
-	context.verbose = verbose # since these are the only times you need to know verbose, it's fine
-	if verbose: print("Documentation Comments Helper  ||  Hello! Right-click in the script editor to find the features of this plugin under the \"## Documentation\" menu item.")
 
 
 
@@ -55,8 +48,10 @@ func load_settings():
 
 func save_settings():
 	var new_file = FileAccess.open(SettingsPath, FileAccess.WRITE)
-	new_file.store_string(JSON.new().stringify(settings, "\t"))
+	var json = JSON.new()
+	new_file.store_string(json.stringify(settings, "\t"))
 	new_file.close()
+	new_file = null
 
 
 

@@ -1,8 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://b4i628y87m0ux"]
+[gd_scene format=3 uid="uid://b4i628y87m0ux"]
 
 [ext_resource type="Script" uid="uid://bvoj0mxj16x5s" path="res://addons/DocCommentHelper/window.gd" id="1_b6yhb"]
 
-[node name="Window" type="Window"]
+[node name="Window" type="Window" unique_id=1990630361]
+oversampling_override = 1.0
 title = "## Documentation Comment Writer"
 initial_position = 2
 size = Vector2i(640, 400)
@@ -10,7 +11,7 @@ transient = true
 min_size = Vector2i(640, 300)
 script = ExtResource("1_b6yhb")
 
-[node name="p" type="PanelContainer" parent="."]
+[node name="p" type="PanelContainer" parent="." unique_id=910827155]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -19,18 +20,18 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="m" type="MarginContainer" parent="p"]
+[node name="m" type="MarginContainer" parent="p" unique_id=783685126]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="v" type="VBoxContainer" parent="p/m"]
+[node name="v" type="VBoxContainer" parent="p/m" unique_id=641895108]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CodeEdit" type="CodeEdit" parent="p/m/v"]
+[node name="CodeEdit" type="CodeEdit" parent="p/m/v" unique_id=1717658801]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
@@ -38,86 +39,86 @@ size_flags_vertical = 3
 wrap_mode = 1
 autowrap_mode = 2
 draw_tabs = true
-line_length_guidelines = Array[int]([97])
+line_length_guidelines = Array[int]([100])
 gutters_draw_line_numbers = true
 auto_brace_completion_enabled = true
 auto_brace_completion_highlight_matching = true
 
-[node name="h" type="HBoxContainer" parent="p/m/v"]
+[node name="h" type="HBoxContainer" parent="p/m/v" unique_id=241525134]
 layout_mode = 2
 theme_override_constants/separation = 12
 
-[node name="Copy" type="Button" parent="p/m/v/h"]
+[node name="Copy" type="Button" parent="p/m/v/h" unique_id=2057254110]
 unique_name_in_owner = true
 self_modulate = Color(0.537886, 1, 0.50571, 1)
 layout_mode = 2
 tooltip_text = "Prefixes all lines above with \"## \", selects everything, and copies it to your system's clipboard."
 text = "## Convert and Copy"
 
-[node name="Convert" type="Button" parent="p/m/v/h"]
+[node name="Convert" type="Button" parent="p/m/v/h" unique_id=315210329]
 unique_name_in_owner = true
 self_modulate = Color(0.537886, 1, 0.50571, 1)
 layout_mode = 2
 tooltip_text = "Prefixes all lines above with \"## \""
 text = "## Just Convert"
 
-[node name="ShowOptions" type="CheckBox" parent="p/m/v/h"]
+[node name="ShowOptions" type="CheckBox" parent="p/m/v/h" unique_id=158788545]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Show Options"
 
-[node name="Revert" type="Button" parent="p/m/v/h"]
+[node name="Revert" type="Button" parent="p/m/v/h" unique_id=264295848]
 layout_mode = 2
 tooltip_text = "Removes the formatting conversion from all text in the editor."
 text = "Revert"
 
-[node name="Clear" type="Button" parent="p/m/v/h"]
+[node name="Clear" type="Button" parent="p/m/v/h" unique_id=283045067]
 unique_name_in_owner = true
 self_modulate = Color(0.999985, 0.231394, 0.367518, 1)
 layout_mode = 2
 text = "Clear"
 
-[node name="Options" type="HFlowContainer" parent="p/m/v"]
+[node name="Options" type="HFlowContainer" parent="p/m/v" unique_id=1708039437]
 unique_name_in_owner = true
 visible = false
 layout_mode = 2
 theme_override_constants/h_separation = 12
 
-[node name="GuideBox" type="HBoxContainer" parent="p/m/v/Options"]
+[node name="GuideBox" type="HBoxContainer" parent="p/m/v/Options" unique_id=539588987]
 layout_mode = 2
 theme_override_constants/separation = 8
 
-[node name="Label" type="Label" parent="p/m/v/Options/GuideBox"]
+[node name="Label" type="Label" parent="p/m/v/Options/GuideBox" unique_id=244092242]
 layout_mode = 2
 text = "Width Guide"
 
-[node name="WidthGuide" type="SpinBox" parent="p/m/v/Options/GuideBox"]
+[node name="WidthGuide" type="SpinBox" parent="p/m/v/Options/GuideBox" unique_id=883180337]
 unique_name_in_owner = true
 layout_mode = 2
 max_value = 80.0
-value = 97.0
+value = 100.0
 rounded = true
 allow_greater = true
 alignment = 1
 
-[node name="GetGuideline" type="Button" parent="p/m/v/Options/GuideBox"]
+[node name="GetGuideline" type="Button" parent="p/m/v/Options/GuideBox" unique_id=1507669515]
 layout_mode = 2
 tooltip_text = "This will change the Width Guide to the same as your editor's hard column guide setting."
 text = "Set to Editor's Width"
 
-[node name="WrapBox" type="HBoxContainer" parent="p/m/v/Options"]
+[node name="WrapBox" type="HBoxContainer" parent="p/m/v/Options" unique_id=316762184]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="p/m/v/Options/WrapBox"]
+[node name="Label" type="Label" parent="p/m/v/Options/WrapBox" unique_id=1848140416]
 layout_mode = 2
 text = "Text Wrap Mode"
 
-[node name="Wrap" type="OptionButton" parent="p/m/v/Options/WrapBox"]
+[node name="Wrap" type="OptionButton" parent="p/m/v/Options/WrapBox" unique_id=2065359530]
 unique_name_in_owner = true
 layout_mode = 2
 alignment = 1
-selected = 0
+selected = 2
 item_count = 4
 popup/item_0/text = "Off"
 popup/item_0/id = 0
@@ -128,31 +129,25 @@ popup/item_2/id = 2
 popup/item_3/text = "Word (Smart)"
 popup/item_3/id = 3
 
-[node name="BraceCompletion" type="CheckBox" parent="p/m/v/Options"]
+[node name="BraceCompletion" type="CheckBox" parent="p/m/v/Options" unique_id=1204034868]
 unique_name_in_owner = true
 layout_mode = 2
 button_pressed = true
 text = "Auto Brace Completion"
 
-[node name="BraceHighlighting" type="CheckBox" parent="p/m/v/Options"]
+[node name="BraceHighlighting" type="CheckBox" parent="p/m/v/Options" unique_id=17499064]
 unique_name_in_owner = true
 layout_mode = 2
 button_pressed = true
 text = "Brace Highlighting"
 
-[node name="HelpText" type="CheckBox" parent="p/m/v/Options"]
+[node name="HelpText" type="CheckBox" parent="p/m/v/Options" unique_id=2109577194]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "This sets whether to have the help text in the code window when empty."
 text = "Helpful Text"
 
-[node name="Verbose" type="CheckBox" parent="p/m/v/Options"]
-unique_name_in_owner = true
-layout_mode = 2
-tooltip_text = "Disabling this option will stop the plugin from printing non-error messages to output."
-text = "Verbose"
-
-[node name="Website" type="Button" parent="p/m/v/Options"]
+[node name="Website" type="Button" parent="p/m/v/Options" unique_id=1964644283]
 unique_name_in_owner = true
 layout_mode = 2
 tooltip_text = "https://docs.godotengine.org/en/stable/tutorials/scripting/gdscript/gdscript_documentation_comments.html"
@@ -170,5 +165,4 @@ text = "Open Godot's Documentation Comments (website)"
 [connection signal="toggled" from="p/m/v/Options/BraceCompletion" to="." method="_on_brace_completion_toggled"]
 [connection signal="toggled" from="p/m/v/Options/BraceHighlighting" to="." method="_on_brace_highlighting_toggled"]
 [connection signal="toggled" from="p/m/v/Options/HelpText" to="." method="_on_help_text_toggled"]
-[connection signal="toggled" from="p/m/v/Options/Verbose" to="." method="_on_verbose_toggled"]
 [connection signal="pressed" from="p/m/v/Options/Website" to="." method="_on_website_pressed"]
